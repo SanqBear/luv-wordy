@@ -212,8 +212,8 @@ namespace LuvWordy.Server.Model.Models
         public WordItem(DataRow row) : base(row)
         {
             Definition = row["Definition"]?.ToString() ?? String.Empty;
-            PronunciationJSON = row["Definition"]?.ToString() ?? String.Empty;
-            ConjugationJSON = row["Definition"]?.ToString() ?? String.Empty;
+            PronunciationJSON = row["PronunciationJSON"]?.ToString() ?? String.Empty;
+            ConjugationJSON = row["ConjugationJSON"]?.ToString() ?? String.Empty;
 
             if (row["EntryWordWrittenForm"] != null)
             {
