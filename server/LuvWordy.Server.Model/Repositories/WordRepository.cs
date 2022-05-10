@@ -13,14 +13,17 @@ namespace LuvWordy.Server.Model.Repositories
     {
         private SqlConnection _connection;
 
+        public const string KEY = "KorWordy";
+
         public WordRepository(string connectionString)
         {
             _connection = new SqlConnection(connectionString);
         }
 
 
-        public List<WordItemSummary> GetWordItems(int size, int offset)
+        public (int totalCount, List<WordItemSummary> items) GetWordItems(int size, int offset)
         {
+            int totalCount = -1;
             List<WordItemSummary> wordItems = new List<WordItemSummary>();
 
             var sizeParam = new SqlParameter("Size", DbType.Int32);
@@ -31,16 +34,18 @@ namespace LuvWordy.Server.Model.Repositories
 
             using(DataSet ds = ExecuteDataSet("[dbo].[up_LIST_tb_Word]", new SqlParameter[] { sizeParam, offsetParam }))
             {
-                if(ds?.Tables?.Count > 0 && ds.Tables[0].Rows?.Count > 0)
+                if(ds?.Tables?.Count > 1)
                 {
-                    foreach(DataRow row in ds.Tables[0].Rows)
+                    totalCount = int.TryParse(ds.Tables[0].Rows[0]["ItemCount"]?.ToString(), out int tc) ? tc : -1;
+
+                    foreach(DataRow row in ds.Tables[1].Rows)
                     {
                         wordItems.Add(new WordItemSummary(row));
                     }
                 }
             }
 
-            return wordItems;
+            return (totalCount, wordItems);
         }
 
         public WordItem? GetWordItem(Guid id, Guid definitionId)
