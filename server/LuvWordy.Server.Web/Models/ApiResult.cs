@@ -12,7 +12,7 @@ namespace LuvWordy.Server.Web.Models
 
     public class ApiResult<T> : ApiResult
     {
-        private T? Data { get; set; } = default(T);
+        public T? Data { get; set; } = default(T);
     }
 
     public class ApiPagedResult<T> : ApiResult
