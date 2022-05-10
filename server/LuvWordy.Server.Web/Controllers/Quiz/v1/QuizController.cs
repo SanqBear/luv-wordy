@@ -14,12 +14,5 @@ namespace LuvWordy.Server.Web.Controllers.Quiz
             _logger = logger;
         }
 
-        [HttpGet]
-        [Route("hello")]
-        public async Task<IActionResult> HelloWorld()
-        {
-            return Ok("world");
-        }
-
     }
 }
