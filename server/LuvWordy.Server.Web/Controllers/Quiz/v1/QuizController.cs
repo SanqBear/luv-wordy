@@ -3,7 +3,8 @@
 namespace LuvWordy.Server.Web.Controllers.Quiz
 {
     [ApiController]
-    [Route("api/quiz")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/quiz")]
     public class QuizController : ControllerBase
     {
         private readonly ILogger<QuizController> _logger;

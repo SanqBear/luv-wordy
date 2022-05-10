@@ -3,7 +3,8 @@
 namespace LuvWordy.Server.Web.Controllers.Dictionary
 {
     [ApiController]
-    [Route("api/dictionaries")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/dictionaries")]
     public class DictionariesController : ControllerBase
     {
         private readonly ILogger<DictionariesController> _logger;

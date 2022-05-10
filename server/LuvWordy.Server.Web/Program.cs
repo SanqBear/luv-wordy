@@ -1,14 +1,28 @@
+using LuvWordy.Server.Web.Utils.Swagger;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddControllers();
+builder.Services.AddApiVersioning(config =>
+{
+    config.DefaultApiVersion = new ApiVersion(1, 0);
+    config.AssumeDefaultVersionWhenUnspecified = true;
+    config.ReportApiVersions = true;
+    config.ApiVersionReader = new UrlSegmentApiVersionReader();
+});
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(config =>
+{
+    config.OperationFilter<RemoveVersionParameterFilter>();
+    config.DocumentFilter<ReplaceVersionWithExactValueInPathFilter>();
+});
 
 var app = builder.Build();
-
 
 if (app.Environment.IsDevelopment())
 {
