@@ -44,7 +44,7 @@ namespace LuvWordy.Server.Web.Controllers.Dictionary
 
                 await using (var repo = new WordRepository(_wordRepoConnectionString))
                 {
-                    (apiResult.TotalCount, apiResult.Data) = repo.GetWordItems(pageProp, sizeProp);
+                    (apiResult.TotalCount, apiResult.Data) = repo.GetWordItems(sizeProp, offsetProp);
 
                     apiResult.NextOffset = apiResult.TotalCount > offsetProp + sizeProp ? offsetProp + sizeProp : null;
                     apiResult.Success = true;
