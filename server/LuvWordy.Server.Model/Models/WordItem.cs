@@ -7,8 +7,21 @@ using System.Threading.Tasks;
 
 namespace LuvWordy.Server.Model.Models
 {
+    public class WordItemBase
+    {
+        /// <summary>
+        /// Base id for <한국어 기초 사전>
+        /// </summary>
+        public int DataNumber { get; set; }
 
-    public class WordItemSummary
+        /// <summary>
+        /// Written form on this word.
+        /// </summary>
+        public string WrittenForm { get; set; }
+    }
+
+
+    public class WordItemSummary : WordItemBase
     {
         /// <summary>
         /// Word id
@@ -16,24 +29,14 @@ namespace LuvWordy.Server.Model.Models
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Base id for <한국어 기초 사전>
+        /// Word definition Id
         /// </summary>
-        public int DataNumber { get; set; }
+        public Guid DefinitionId { get; set; }
 
         /// <summary>
-        /// How many homonym word i haved.
+        /// How many homonym words i haved.
         /// </summary>
         public int HomonymNumber { get; set; }
-
-        /// <summary>
-        /// Homonym index based on WrittenForm, DataNumber
-        /// </summary>
-        public int HomonymIndex { get; set; }
-
-        /// <summary>
-        /// Written form on this word.
-        /// </summary>
-        public string WrittenForm { get; set; }
 
         /// <summary>
         /// LexicalUnit StoredText on DB
@@ -147,5 +150,25 @@ namespace LuvWordy.Server.Model.Models
 
     public class WordItem : WordItemSummary
     {
+        /// <summary>
+        /// word definition
+        /// </summary>
+        public string Definition { get; set; }
+
+        /// <summary>
+        /// word pronunciation
+        /// </summary>
+        public string PronunciationJSON { get; set; }
+
+        /// <summary>
+        /// word conjugation
+        /// </summary>
+        public string ConjugationJSON { get; set; }
+
+        /// <summary>
+        /// entry word
+        /// </summary>
+        public WordItemBase? EntryWord { get; set; }
+
     }
 }
