@@ -24,19 +24,19 @@ namespace LuvWordy.Server.Web.Controllers.Dictionary
         }
 
         /// <summary>
-        /// Get dictionaries
+        /// 단어 목록을 가져옵니다
         /// </summary>
-        /// <param name="page">page number</param>
-        /// <param name="size">fetch count</param>
-        /// <returns>dictionary summary items</returns>
+        /// <param name="page">페이지 번호</param>
+        /// <param name="size">가져올 아이템 수</param>
+        /// <returns>단어 목록 (Summary)</returns>
         /// <remarks>
-        /// Sample request :
+        /// 호출 예 :
         /// 
         ///     GET /api/v1/dictionaries
         /// 
         /// </remarks>
-        /// <response code="200">return dictionaries successfully</response>
-        /// <response code="500">occured unexpected error</response>
+        /// <response code="200">단어 목록 및 총 아이템 수를 반환</response>
+        /// <response code="500">오류 메시지 반환</response>
         [HttpGet]
         [Route("")]
         [ProducesResponseType(typeof(ApiPagedResult<WordItemSummary>), 200)]
