@@ -1,14 +1,29 @@
 ﻿using LuvWordy.Server.Model.Enums;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace LuvWordy.Server.Model.Models
 {
     public class WordItemBase
     {
+        public WordItemBase()
+        {
+            DataNumber = -1;
+            WrittenForm = string.Empty;
+        }
+
+        public WordItemBase(DataRow row)
+        {
+            DataNumber = int.TryParse(row["DataNo"]?.ToString(), out var datano) ? datano : -1;
+            WrittenForm = row["WrittenForm"]?.ToString() ?? string.Empty;
+        }
+
+
         /// <summary>
         /// Base id for <한국어 기초 사전>
         /// </summary>
@@ -23,6 +38,26 @@ namespace LuvWordy.Server.Model.Models
 
     public class WordItemSummary : WordItemBase
     {
+        public WordItemSummary() : base()
+        {
+            Id = Guid.Empty;
+            DefinitionId = Guid.Empty;
+            HomonymNumber = -1;
+            LexicalUnitText = String.Empty;
+            PartOfSpeechText = String.Empty;
+            VocabularyLevelText = String.Empty;
+        }
+
+        public WordItemSummary(DataRow row) : base(row)
+        {
+            Id = Guid.TryParse(row["Id"]?.ToString(), out Guid id) ? id : Guid.Empty;
+            DefinitionId = Guid.TryParse(row["DefinitionId"]?.ToString(), out Guid defid) ? defid : Guid.Empty;
+            HomonymNumber = int.TryParse(row["HomonymNumber"]?.ToString(), out int hn) ? hn : -1;
+            LexicalUnitText = row["LexicalUnit"]?.ToString() ?? String.Empty;
+            PartOfSpeechText = row["PartOfSpeech"]?.ToString() ?? String.Empty;
+            VocabularyLevelText = row["VocabularyLevel"]?.ToString() ?? String.Empty;
+        }
+
         /// <summary>
         /// Word id
         /// </summary>
@@ -150,6 +185,30 @@ namespace LuvWordy.Server.Model.Models
 
     public class WordItem : WordItemSummary
     {
+        public WordItem()
+        {
+            Definition = String.Empty;
+            PronunciationJSON = String.Empty;
+            ConjugationJSON = String.Empty;
+            EntryWord = null;
+        }
+
+        public WordItem(DataRow row) : base(row)
+        {
+            Definition = row["Definition"]?.ToString() ?? String.Empty;
+            PronunciationJSON = row["Definition"]?.ToString() ?? String.Empty;
+            ConjugationJSON = row["Definition"]?.ToString() ?? String.Empty;
+
+            if (row["EntryWordWrittenForm"] != null)
+            {
+                EntryWord = new WordItemBase()
+                {
+                    DataNumber = int.TryParse(row["EntryWordDataNo"]?.ToString(), out int ewdn) ? ewdn : -1,
+                    WrittenForm = row["EntryWordWrittenForm"]?.ToString() ?? String.Empty,
+                };
+            }
+        }
+
         /// <summary>
         /// word definition
         /// </summary>
@@ -161,13 +220,41 @@ namespace LuvWordy.Server.Model.Models
         public string PronunciationJSON { get; set; }
 
         /// <summary>
+        /// word pronunciations deserialized
+        /// </summary>
+        public List<PronunciationItem> Pronunciations
+        {
+            get
+            {
+                return System.Text.Json.JsonSerializer.Deserialize<List<PronunciationItem>>(PronunciationJSON) ?? new List<PronunciationItem>();
+            }
+        }
+
+        /// <summary>
         /// word conjugation
         /// </summary>
         public string ConjugationJSON { get; set; }
 
         /// <summary>
+        /// word conjugations deserialized
+        /// </summary>
+        public List<ConjugationItem> Conjugations
+        {
+            get
+            {
+                return System.Text.Json.JsonSerializer.Deserialize<List<ConjugationItem>>(ConjugationJSON) ?? new List<ConjugationItem>();
+            }
+        }
+
+        /// <summary>
+        /// Having EntryWord yes or no
+        /// </summary>
+        public bool HasEntryWord => EntryWord != null;
+
+        /// <summary>
         /// entry word
         /// </summary>
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public WordItemBase? EntryWord { get; set; }
 
     }
