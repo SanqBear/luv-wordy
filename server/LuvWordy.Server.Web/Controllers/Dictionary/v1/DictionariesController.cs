@@ -66,5 +66,40 @@ namespace LuvWordy.Server.Web.Controllers.Dictionary
                 return StatusCode(500, ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("{id}")]
+        [ProducesResponseType(typeof(ApiResult<Dictionary<Guid, WordItem>>), 200)]
+        public async Task<IActionResult> GetDictionary(string id, [FromQuery]string? definitionId)
+        {
+            try
+            {
+                if(Guid.TryParse(id, out Guid idProp))
+                {
+                    ApiResult<Dictionary<Guid, WordItem>> apiResult = new ApiResult<Dictionary<Guid,WordItem>>();
+
+                    Guid definitionIdProp = Guid.TryParse(definitionId, out definitionIdProp) ? definitionIdProp : Guid.Empty;
+
+                    await using(var repo = new WordRepository(_wordRepoConnectionString))
+                    {
+                        List<WordItem> items = repo.GetWordItemDetails(idProp, definitionIdProp);
+
+                        apiResult.Data = items.ToDictionary(o => o.Id);
+                        apiResult.Success = true;
+                    }
+
+                    return Ok(apiResult);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, $"occured unexpected error on [{nameof(DictionariesController)}] {nameof(GetDictionary)}({nameof(id)}:'{id}',{nameof(definitionId)}:'{definitionId}')");
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

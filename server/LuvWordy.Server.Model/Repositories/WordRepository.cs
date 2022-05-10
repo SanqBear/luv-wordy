@@ -42,23 +42,28 @@ namespace LuvWordy.Server.Model.Repositories
             return (totalCount, wordItems);
         }
 
-        public WordItem? GetWordItem(Guid id, Guid definitionId)
+        public List<WordItem> GetWordItemDetails(Guid id, Guid definitionId)
         {
+            List<WordItem> wordItems = new List<WordItem>();
+
             var idParam = new SqlParameter("Id", DbType.Guid);
             var defIdParam = new SqlParameter("DefinitionId", DbType.Guid);
 
             idParam.Value = id;
-            defIdParam.Value = definitionId;
+            defIdParam.Value = definitionId != Guid.Empty ? definitionId : DBNull.Value;
 
             using (DataSet ds = ExecuteDataSet("[dbo].[up_SELECT_tb_Word]", new SqlParameter[] { idParam, defIdParam }))
             {
                 if (ds?.Tables?.Count > 0 && ds.Tables[0].Rows?.Count > 0)
                 {
-                    return new WordItem(ds.Tables[0].Rows[0]);
+                    foreach(DataRow row in ds.Tables[0].Rows)
+                    {
+                        wordItems.Add(new WordItem(row));
+                    }
                 }
             }
 
-            return null;
+            return wordItems;
         }
 
         private DataSet ExecuteDataSet(string query, SqlParameter[]? parameters = null, CommandType commandType = CommandType.StoredProcedure)
