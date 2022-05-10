@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LuvWordy.Server.Model.Models
+﻿namespace LuvWordy.Server.Model.Models
 {
     public class PronunciationItem
     {
@@ -17,9 +11,7 @@ namespace LuvWordy.Server.Model.Models
 
         public Guid Id { get; set; }
 
-
         public string Pronunciation { get; set; }
-
 
         public string SoundUrl { get; set; }
     }

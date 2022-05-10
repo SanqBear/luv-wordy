@@ -9,7 +9,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddControllers()
                 .AddJsonOptions(options =>
                 {
-                  options.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
+                    options.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
                 });
 builder.Services.AddApiVersioning(config =>
 {

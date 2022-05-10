@@ -1,11 +1,6 @@
 ﻿using LuvWordy.Server.Model.Models;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LuvWordy.Server.Model.Repositories
 {
@@ -20,7 +15,6 @@ namespace LuvWordy.Server.Model.Repositories
             _connection = new SqlConnection(connectionString);
         }
 
-
         public (int totalCount, List<WordItemSummary> items) GetWordItems(int size, int offset)
         {
             int totalCount = -1;
@@ -32,13 +26,13 @@ namespace LuvWordy.Server.Model.Repositories
             sizeParam.Value = size;
             offsetParam.Value = offset;
 
-            using(DataSet ds = ExecuteDataSet("[dbo].[up_LIST_tb_Word]", new SqlParameter[] { sizeParam, offsetParam }))
+            using (DataSet ds = ExecuteDataSet("[dbo].[up_LIST_tb_Word]", new SqlParameter[] { sizeParam, offsetParam }))
             {
-                if(ds?.Tables?.Count > 1)
+                if (ds?.Tables?.Count > 1)
                 {
                     totalCount = int.TryParse(ds.Tables[0].Rows[0]["ItemCount"]?.ToString(), out int tc) ? tc : -1;
 
-                    foreach(DataRow row in ds.Tables[1].Rows)
+                    foreach (DataRow row in ds.Tables[1].Rows)
                     {
                         wordItems.Add(new WordItemSummary(row));
                     }
@@ -56,9 +50,9 @@ namespace LuvWordy.Server.Model.Repositories
             idParam.Value = id;
             defIdParam.Value = definitionId;
 
-            using(DataSet ds = ExecuteDataSet("[dbo].[up_SELECT_tb_Word]", new SqlParameter[] {idParam, defIdParam }))
+            using (DataSet ds = ExecuteDataSet("[dbo].[up_SELECT_tb_Word]", new SqlParameter[] { idParam, defIdParam }))
             {
-                if(ds?.Tables?.Count > 0 && ds.Tables[0].Rows?.Count > 0)
+                if (ds?.Tables?.Count > 0 && ds.Tables[0].Rows?.Count > 0)
                 {
                     return new WordItem(ds.Tables[0].Rows[0]);
                 }
@@ -67,10 +61,9 @@ namespace LuvWordy.Server.Model.Repositories
             return null;
         }
 
-
         private DataSet ExecuteDataSet(string query, SqlParameter[]? parameters = null, CommandType commandType = CommandType.StoredProcedure)
         {
-            if(_connection.State != ConnectionState.Open)
+            if (_connection.State != ConnectionState.Open)
                 _connection.Open();
 
             DataSet ds = new DataSet();

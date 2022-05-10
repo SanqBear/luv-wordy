@@ -31,9 +31,9 @@ namespace LuvWordy.Server.Web.Controllers.Dictionary
         /// <returns>단어 목록 (Summary)</returns>
         /// <remarks>
         /// 호출 예 :
-        /// 
+        ///
         ///     GET /api/v1/dictionaries
-        /// 
+        ///
         /// </remarks>
         /// <response code="200">단어 목록 및 총 아이템 수를 반환</response>
         /// <response code="500">오류 메시지 반환</response>

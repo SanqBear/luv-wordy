@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace LuvWordy.Server.Web.Pages
 {
@@ -14,7 +13,6 @@ namespace LuvWordy.Server.Web.Pages
 
         public void OnGet()
         {
-
         }
     }
 }
