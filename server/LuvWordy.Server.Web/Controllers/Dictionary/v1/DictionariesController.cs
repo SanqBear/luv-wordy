@@ -62,6 +62,7 @@ namespace LuvWordy.Server.Web.Controllers.Dictionary
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, $"occured unexpected error on [{nameof(DictionariesController)}] {nameof(GetDictionaries)}({nameof(page)}:'{page}',{nameof(size)}:'{size}')");
                 return StatusCode(500, ex.Message);
             }
         }
