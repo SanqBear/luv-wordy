@@ -24,6 +24,9 @@ builder.Services.AddSwaggerGen(config =>
 {
     config.OperationFilter<RemoveVersionParameterFilter>();
     config.DocumentFilter<ReplaceVersionWithExactValueInPathFilter>();
+
+    var descriptionFilePath = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    config.IncludeXmlComments(System.IO.Path.Combine(AppContext.BaseDirectory, descriptionFilePath));
 });
 
 var app = builder.Build();

@@ -24,11 +24,19 @@ namespace LuvWordy.Server.Web.Controllers.Dictionary
         }
 
         /// <summary>
-        /// get dictionaries
+        /// Get dictionaries
         /// </summary>
         /// <param name="page">page number</param>
-        /// <param name="size">item size</param>
-        /// <returns></returns>
+        /// <param name="size">fetch count</param>
+        /// <returns>dictionary summary items</returns>
+        /// <remarks>
+        /// Sample request :
+        /// 
+        ///     GET /api/v1/dictionaries
+        /// 
+        /// </remarks>
+        /// <response code="200">return dictionaries successfully</response>
+        /// <response code="500">occured unexpected error</response>
         [HttpGet]
         [Route("")]
         [ProducesResponseType(typeof(ApiPagedResult<WordItemSummary>), 200)]
