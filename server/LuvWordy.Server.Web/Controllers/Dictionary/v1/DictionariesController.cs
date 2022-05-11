@@ -40,6 +40,7 @@ namespace LuvWordy.Server.Web.Controllers.Dictionary
         /// <response code="500">오류 발생</response>
         [HttpGet]
         [Route("")]
+        [Produces("application/json")]
         [ProducesResponseType(typeof(ApiPagedResult<WordItemSummary>), 200)]
         public async Task<IActionResult> GetDictionaries([FromQuery] int? page, [FromQuery] int? size, [FromQuery] int? offset)
         {
@@ -85,6 +86,7 @@ namespace LuvWordy.Server.Web.Controllers.Dictionary
         /// <response code="500">오류 발생</response>
         [HttpGet]
         [Route("{id}")]
+        [Produces("application/json")]
         [ProducesResponseType(typeof(ApiResult<Dictionary<Guid, WordItem>>), 200)]
         public async Task<IActionResult> GetDictionary(string id, [FromQuery]string? definitionId)
         {
