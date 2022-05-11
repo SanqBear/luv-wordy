@@ -9,6 +9,8 @@
   "author": "SanqBear <sanqbear@outlook.com>",
   "license": "MIT",
   "dependencies": {
+    "@luv-wordy/eslint-config": "file:../../modules/eslint-config",
+    "@luv-wordy/prettier-config": "file:../../modules/prettier-config",
     "vue": "^3.2.33"
   }
 }

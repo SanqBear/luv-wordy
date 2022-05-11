@@ -1,0 +1,7 @@
+{
+  "name": "@luv-wordy/prettier-config",
+  "version": "0.1.0",
+  "main": "index.ts",
+  "author": "SanqBear <sanqbear@outlook.com>",
+  "license": "MIT"
+}
