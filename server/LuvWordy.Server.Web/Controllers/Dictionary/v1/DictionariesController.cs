@@ -40,7 +40,7 @@ namespace LuvWordy.Server.Web.Controllers.Dictionary
         /// <response code="200">단어 목록 및 총 아이템 수를 반환</response>
         /// <response code="500">오류 발생</response>
         [HttpGet]
-        [Route("")]
+        [Route("", Name = nameof(GetDictionaries))]
         [Produces("application/json")]
         [ProducesResponseType(typeof(ApiPagedResult<WordItemSummary>), 200)]
         public async Task<IActionResult> GetDictionaries([FromQuery] int? page, [FromQuery] int? size, [FromQuery] int? offset)
@@ -86,7 +86,7 @@ namespace LuvWordy.Server.Web.Controllers.Dictionary
         /// <response code="400">ID를 파싱할 수 없음</response>
         /// <response code="500">오류 발생</response>
         [HttpGet]
-        [Route("{id}")]
+        [Route("{id}", Name = nameof(GetDictionary))]
         [Produces("application/json")]
         [ProducesResponseType(typeof(ApiResult<Dictionary<Guid, WordItem>>), 200)]
         public async Task<IActionResult> GetDictionary(string id, [FromQuery] string? definitionId)
@@ -153,7 +153,7 @@ namespace LuvWordy.Server.Web.Controllers.Dictionary
         /// <response code="200">색인된 단어 목록 및 총 아이템 수를 반환</response>
         /// <response code="500">오류 발생</response>
         [HttpPost]
-        [Route("search")]
+        [Route("search", Name = nameof(SearchDictionary))]
         [Produces("application/json")]
         [ProducesResponseType(typeof(ApiPagedResult<WordItemSummary>), 200)]
         public async Task<IActionResult> SearchDictionary([FromQuery] int? page, [FromQuery] int? size, [FromQuery] int? offset, [FromBody] DictionarySearchParams @params)
