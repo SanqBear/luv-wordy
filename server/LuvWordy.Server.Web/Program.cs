@@ -25,8 +25,10 @@ builder.Services.AddSwaggerGen(config =>
     config.OperationFilter<RemoveVersionParameterFilter>();
     config.DocumentFilter<ReplaceVersionWithExactValueInPathFilter>();
 
-    var descriptionFilePath = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    config.IncludeXmlComments(System.IO.Path.Combine(AppContext.BaseDirectory, descriptionFilePath));
+    var descriptionFileName = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var modelDescriptionFileName = $"{typeof(LuvWordy.Server.Model.Repositories.WordRepository).Assembly.GetName().Name}.xml";
+    config.IncludeXmlComments(System.IO.Path.Combine(AppContext.BaseDirectory, descriptionFileName));
+    config.IncludeXmlComments(System.IO.Path.Combine(AppContext.BaseDirectory, modelDescriptionFileName));
 });
 
 var app = builder.Build();

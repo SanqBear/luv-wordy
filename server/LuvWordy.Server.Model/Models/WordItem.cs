@@ -24,7 +24,7 @@ namespace LuvWordy.Server.Model.Models
         #endregion
 
         /// <summary>
-        /// <한국어 기초 사전> 기준 ID 컬럼 (중복값이 존재하므로, 참조용으로 사용)
+        /// 한국어 기초 사전 기준 ID 컬럼 (중복값이 존재하므로, 참조용으로 사용)
         /// </summary>
         public int DataNumber { get; set; }
 
