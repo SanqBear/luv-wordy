@@ -121,13 +121,41 @@ namespace LuvWordy.Server.Web.Controllers.Dictionary
             }
         }
 
-
-
+        /// <summary>
+        /// 사전 검색 파라메터
+        /// </summary>
+        /// <param name="keyword">검색 키워드</param>
+        /// <param name="lexicalUnit">단어 단위</param>
+        /// <param name="partOfSpeech">품사</param>
+        /// <param name="vocabularyLevel">표현 난이도</param>
         public record DictionarySearchParams(string? keyword, string? lexicalUnit, string? partOfSpeech, string? vocabularyLevel);
 
+        /// <summary>
+        /// 단어 목록을 검색합니다
+        /// </summary>
+        /// <param name="page">페이지 번호</param>
+        /// <param name="size">가져올 아이템 수</param>
+        /// <param name="offset">건너 뛸 아이템 수 (페이지보다 우선함)</param>
+        /// <param name="params">검색 파라메터</param>
+        /// <returns>단어 목록 (Summary)</returns>
+        /// <remarks>
+        /// 호출 예 :
+        ///
+        ///     POST /api/v1/dictionaries
+        ///     {
+        ///         "keyword": "나라",
+        ///         "lexicalUnit": "word",
+        ///         "partOfSpeech": "noun",
+        ///         "vocabularyLevel": "easy"
+        ///     }
+        ///     
+        /// </remarks>
+        /// <response code="200">색인된 단어 목록 및 총 아이템 수를 반환</response>
+        /// <response code="500">오류 발생</response>
         [HttpPost]
         [Route("search")]
         [Produces("application/json")]
+        [ProducesResponseType(typeof(ApiPagedResult<WordItemSummary>), 200)]
         public async Task<IActionResult> SearchDictionary([FromQuery] int? page, [FromQuery] int? size, [FromQuery] int? offset, [FromBody] DictionarySearchParams @params)
         {
             try
