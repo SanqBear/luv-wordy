@@ -4,8 +4,12 @@ using System.Text.Json.Serialization;
 
 namespace LuvWordy.Server.Model.Models
 {
+    /// <summary>
+    /// 단어. 약식 (참조용)
+    /// </summary>
     public class WordItemBase
     {
+        #region Constructor
         public WordItemBase()
         {
             DataNumber = -1;
@@ -17,20 +21,25 @@ namespace LuvWordy.Server.Model.Models
             DataNumber = int.TryParse(row["DataNo"]?.ToString(), out var datano) ? datano : -1;
             WrittenForm = row["WrittenForm"]?.ToString() ?? string.Empty;
         }
+        #endregion
 
         /// <summary>
-        /// Base id for <한국어 기초 사전>
+        /// <한국어 기초 사전> 기준 ID 컬럼 (중복값이 존재하므로, 참조용으로 사용)
         /// </summary>
         public int DataNumber { get; set; }
 
         /// <summary>
-        /// Written form on this word.
+        /// 표기 시, 단어의 모양
         /// </summary>
         public string WrittenForm { get; set; }
     }
 
+    /// <summary>
+    /// 단어. 요약 (목록용)
+    /// </summary>
     public class WordItemSummary : WordItemBase
     {
+        #region Constructor
         public WordItemSummary() : base()
         {
             Id = Guid.Empty;
@@ -50,39 +59,40 @@ namespace LuvWordy.Server.Model.Models
             PartOfSpeechText = row["PartOfSpeech"]?.ToString() ?? String.Empty;
             VocabularyLevelText = row["VocabularyLevel"]?.ToString() ?? String.Empty;
         }
+        #endregion
 
         /// <summary>
-        /// Word id
+        /// 단어 ID
         /// </summary>
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Word definition Id
+        /// 단어의 정의 ID
         /// </summary>
         public Guid DefinitionId { get; set; }
 
         /// <summary>
-        /// How many homonym words i haved.
+        /// 동음이의어의 개수
         /// </summary>
         public int HomonymNumber { get; set; }
 
         /// <summary>
-        /// LexicalUnit StoredText on DB
+        /// 어휘의 단위 (DB 저장 값)
         /// </summary>
         public string LexicalUnitText { get; set; }
 
         /// <summary>
-        /// PartofSpeech StoredText on DB
+        /// 품사 (DB 저장 값)
         /// </summary>
         public string PartOfSpeechText { get; set; }
 
         /// <summary>
-        /// VocabularyLevel StoredText on DB
+        /// 표현의 난이도 (DB 저장 값)
         /// </summary>
         public string VocabularyLevelText { get; set; }
 
         /// <summary>
-        /// LexicalUnit (translated to en from ko)
+        /// 어휘의 단위
         /// </summary>
         public LexicalUnitType LexicalUnit
         {
@@ -112,7 +122,7 @@ namespace LuvWordy.Server.Model.Models
         }
 
         /// <summary>
-        /// PartOfSpeech (translated to en from ko)
+        /// 품사
         /// </summary>
         public PartOfSpeechType PartOfSpeech
         {
@@ -172,7 +182,7 @@ namespace LuvWordy.Server.Model.Models
         }
 
         /// <summary>
-        /// VocabulraryLevel (translated to en from ko)
+        /// 표현의 난이도
         /// </summary>
         public VocabularyLevelType VocabularyLevel
         {
@@ -199,8 +209,12 @@ namespace LuvWordy.Server.Model.Models
         }
     }
 
+    /// <summary>
+    /// 단어 모델
+    /// </summary>
     public class WordItem : WordItemSummary
     {
+        #region Constructor
         public WordItem()
         {
             Definition = String.Empty;
@@ -224,19 +238,21 @@ namespace LuvWordy.Server.Model.Models
                 };
             }
         }
+        #endregion
 
         /// <summary>
-        /// word definition
+        /// 단어의 정의
         /// </summary>
         public string Definition { get; set; }
 
         /// <summary>
-        /// word pronunciation
+        /// 단어의 발음 JSON Blob (Non-serialized)
         /// </summary>
+        [JsonIgnore]
         public string PronunciationJSON { get; set; }
 
         /// <summary>
-        /// word pronunciations deserialized
+        /// 단어의 발음
         /// </summary>
         public List<PronunciationItem> Pronunciations
         {
@@ -247,12 +263,13 @@ namespace LuvWordy.Server.Model.Models
         }
 
         /// <summary>
-        /// word conjugation
+        /// 단어의 활용 JSON Blob (Non-serialized)
         /// </summary>
+        [JsonIgnore]
         public string ConjugationJSON { get; set; }
 
         /// <summary>
-        /// word conjugations deserialized
+        /// 단어의 활용
         /// </summary>
         public List<ConjugationItem> Conjugations
         {
@@ -263,12 +280,12 @@ namespace LuvWordy.Server.Model.Models
         }
 
         /// <summary>
-        /// Having EntryWord yes or no
+        /// 표제어 존재 여부
         /// </summary>
         public bool HasEntryWord => EntryWord != null;
 
         /// <summary>
-        /// entry word
+        /// 표제어
         /// </summary>
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public WordItemBase? EntryWord { get; set; }
