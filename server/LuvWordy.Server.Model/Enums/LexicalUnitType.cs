@@ -5,8 +5,6 @@ namespace LuvWordy.Server.Model.Enums
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum LexicalUnitType
     {
-        NotInterested,
-
         // ?
         Unknown,
 
@@ -23,6 +21,9 @@ namespace LuvWordy.Server.Model.Enums
         Proverb,
 
         // 표현?문법
-        Expression
+        Expression,
+
+        // 검색 기본값
+        NotInterested,
     }
 }

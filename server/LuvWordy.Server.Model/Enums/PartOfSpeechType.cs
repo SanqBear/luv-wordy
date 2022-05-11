@@ -5,8 +5,6 @@ namespace LuvWordy.Server.Model.Enums
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum PartOfSpeechType
     {
-        NotInterested,
-
         // ?
         Unknown,
 
@@ -54,5 +52,8 @@ namespace LuvWordy.Server.Model.Enums
 
         // 품사 없음
         None,
+
+        // 검색 기본값
+        NotInterested,
     }
 }
