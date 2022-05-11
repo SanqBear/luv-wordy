@@ -28,6 +28,7 @@ namespace LuvWordy.Server.Web.Controllers.Dictionary
         /// </summary>
         /// <param name="page">페이지 번호</param>
         /// <param name="size">가져올 아이템 수</param>
+        /// <param name="offset">건너 뛸 아이템 수 (페이지보다 우선함)</param>
         /// <returns>단어 목록 (Summary)</returns>
         /// <remarks>
         /// 호출 예 :
@@ -40,7 +41,7 @@ namespace LuvWordy.Server.Web.Controllers.Dictionary
         [HttpGet]
         [Route("")]
         [ProducesResponseType(typeof(ApiPagedResult<WordItemSummary>), 200)]
-        public async Task<IActionResult> GetDictionaries([FromQuery] int? page, [FromQuery] int? size)
+        public async Task<IActionResult> GetDictionaries([FromQuery] int? page, [FromQuery] int? size, [FromQuery] int? offset)
         {
             try
             {
@@ -48,7 +49,7 @@ namespace LuvWordy.Server.Web.Controllers.Dictionary
 
                 int pageProp = page ?? 1;
                 int sizeProp = size ?? 15;
-                int offsetProp = sizeProp * (pageProp - 1);
+                int offsetProp = (offset != null) ? (int)offset : sizeProp * (pageProp - 1);
 
                 await using (var repo = new WordRepository(_wordRepoConnectionString))
                 {
