@@ -98,26 +98,7 @@ namespace LuvWordy.Server.Model.Models
         {
             get
             {
-                switch (LexicalUnitText?.TrimStart().TrimEnd())
-                {
-                    default:
-                        return Enum.TryParse<LexicalUnitType>(LexicalUnitText, ignoreCase: true, out var unit) ? unit : LexicalUnitType.Unknown;
-
-                    case "단어":
-                        return LexicalUnitType.Word;
-
-                    case "구":
-                        return LexicalUnitType.Phrase;
-
-                    case "관용구":
-                        return LexicalUnitType.Idiom;
-
-                    case "속담":
-                        return LexicalUnitType.Proverb;
-
-                    case "문법?표현":
-                        return LexicalUnitType.Expression;
-                }
+                return Utils.LexicalUnit.ToEnum(LexicalUnitText);
             }
         }
 
@@ -128,56 +109,7 @@ namespace LuvWordy.Server.Model.Models
         {
             get
             {
-                switch (PartOfSpeechText?.TrimStart().TrimEnd())
-                {
-                    default:
-                        return Enum.TryParse<PartOfSpeechType>(PartOfSpeechText, ignoreCase: true, out var partOfSpeech) ? partOfSpeech : PartOfSpeechType.Unknown;
-
-                    case "명사":
-                        return PartOfSpeechType.Noun;
-
-                    case "동사":
-                        return PartOfSpeechType.Verb;
-
-                    case "대명사":
-                        return PartOfSpeechType.Pronoun;
-
-                    case "형용사":
-                        return PartOfSpeechType.Adjective;
-
-                    case "의존 명사":
-                        return PartOfSpeechType.DependentNoun;
-
-                    case "보조 동사":
-                        return PartOfSpeechType.AuxiliaryVerb;
-
-                    case "수사":
-                        return PartOfSpeechType.Numerals;
-
-                    case "조사":
-                        return PartOfSpeechType.Postposition;
-
-                    case "접사":
-                        return PartOfSpeechType.Affix;
-
-                    case "부사":
-                        return PartOfSpeechType.Adverb;
-
-                    case "감탄사":
-                        return PartOfSpeechType.Interjection;
-
-                    case "관형사":
-                        return PartOfSpeechType.Detective;
-
-                    case "보조 형용사":
-                        return PartOfSpeechType.AuxiliaryAdjective;
-
-                    case "어미":
-                        return PartOfSpeechType.Termination;
-
-                    case "품사 없음":
-                        return PartOfSpeechType.None;
-                }
+                return Utils.PartOfSpeech.ToEnum(PartOfSpeechText);
             }
         }
 
@@ -188,23 +120,7 @@ namespace LuvWordy.Server.Model.Models
         {
             get
             {
-                switch (VocabularyLevelText?.TrimStart().TrimEnd())
-                {
-                    default:
-                        return Enum.TryParse<VocabularyLevelType>(VocabularyLevelText, out VocabularyLevelType vocabularyLevelType) ? vocabularyLevelType : VocabularyLevelType.Unknown;
-
-                    case "없음":
-                        return VocabularyLevelType.None;
-
-                    case "초급":
-                        return VocabularyLevelType.Easy;
-
-                    case "중급":
-                        return VocabularyLevelType.Normal;
-
-                    case "고급":
-                        return VocabularyLevelType.Hard;
-                }
+                return Utils.VocabularyLevel.ToEnum(VocabularyLevelText);
             }
         }
     }
