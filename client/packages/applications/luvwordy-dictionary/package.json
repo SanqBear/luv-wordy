@@ -2,7 +2,10 @@
   "name": "@luv-wordy/client-dictionary",
   "version": "0.1.0",
   "main": "main.ts",
-  "scripts": {},
+  "scripts": {
+    "serve": "vite",
+    "build": "vite build"
+  },
   "author": "SanqBear <sanqbear@outlook.com>",
   "license": "MIT",
   "dependencies": {

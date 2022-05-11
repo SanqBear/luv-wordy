@@ -1,6 +1,11 @@
 {
   "name": "luv-wordy",
   "private": true,
+  "scripts": {
+    "init": "lerna clean --yes && lerna bootstrap --hoist",
+    "serve": "lerna run serve --stream",
+    "build": "lerna run build"
+  },
   "devDependencies": {
     "@types/node": "^17.0.32",
     "@vitejs/plugin-vue": "^2.3.2",
