@@ -36,7 +36,7 @@ namespace LuvWordy.Server.Web.Controllers.Dictionary
         ///
         /// </remarks>
         /// <response code="200">단어 목록 및 총 아이템 수를 반환</response>
-        /// <response code="500">오류 메시지 반환</response>
+        /// <response code="500">오류 발생</response>
         [HttpGet]
         [Route("")]
         [ProducesResponseType(typeof(ApiPagedResult<WordItemSummary>), 200)]
@@ -67,6 +67,21 @@ namespace LuvWordy.Server.Web.Controllers.Dictionary
             }
         }
 
+        /// <summary>
+        /// 특정 ID의 단어들을 가져옵니다. (동음이의어 포함)
+        /// </summary>
+        /// <param name="id">단어 ID</param>
+        /// <param name="definitionId">정의 ID</param>
+        /// <returns>id : key , word : value</returns>
+        /// <remarks>
+        /// 호출 예 :
+        /// 
+        ///     GET /api/v1/dictionaries/9D63F6D9-52E1-4447-A7DD-0008E52FBBC9    
+        /// 
+        /// </remarks>
+        /// <response code="200">단어를 반환</response>
+        /// <response code="400">ID를 파싱할 수 없음</response>
+        /// <response code="500">오류 발생</response>
         [HttpGet]
         [Route("{id}")]
         [ProducesResponseType(typeof(ApiResult<Dictionary<Guid, WordItem>>), 200)]
