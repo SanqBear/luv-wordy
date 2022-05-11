@@ -1,9 +1,4 @@
 ﻿using LuvWordy.Server.Model.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LuvWordy.Server.Model.Utils
 {
@@ -15,14 +10,19 @@ namespace LuvWordy.Server.Model.Utils
             {
                 default:
                     return "Unknown";
+
                 case LexicalUnitType.Word:
                     return "단어";
+
                 case LexicalUnitType.Phrase:
                     return "구";
+
                 case LexicalUnitType.Idiom:
                     return "관용구";
+
                 case LexicalUnitType.Proverb:
                     return "속담";
+
                 case LexicalUnitType.Expression:
                     return "문법?표현";
             }
@@ -51,6 +51,5 @@ namespace LuvWordy.Server.Model.Utils
                     return LexicalUnitType.Expression;
             }
         }
-
     }
 }

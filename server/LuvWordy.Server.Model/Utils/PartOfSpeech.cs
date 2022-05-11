@@ -1,9 +1,4 @@
 ﻿using LuvWordy.Server.Model.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LuvWordy.Server.Model.Utils
 {
@@ -15,39 +10,53 @@ namespace LuvWordy.Server.Model.Utils
             {
                 default:
                     return "Unknown";
+
                 case PartOfSpeechType.Noun:
                     return "명사";
+
                 case PartOfSpeechType.Verb:
                     return "동사";
+
                 case PartOfSpeechType.Pronoun:
                     return "대명사";
+
                 case PartOfSpeechType.Adjective:
                     return "형용사";
+
                 case PartOfSpeechType.DependentNoun:
                     return "의존 명사";
+
                 case PartOfSpeechType.AuxiliaryVerb:
                     return "보조 동사";
+
                 case PartOfSpeechType.Numerals:
                     return "수사";
+
                 case PartOfSpeechType.Postposition:
                     return "조사";
+
                 case PartOfSpeechType.Affix:
                     return "접사";
+
                 case PartOfSpeechType.Adverb:
                     return "부사";
+
                 case PartOfSpeechType.Interjection:
                     return "감탄사";
+
                 case PartOfSpeechType.Detective:
                     return "관형사";
+
                 case PartOfSpeechType.AuxiliaryAdjective:
                     return "보조 형용사";
+
                 case PartOfSpeechType.Termination:
                     return "어미";
+
                 case PartOfSpeechType.None:
                     return "품사 없음";
             }
         }
-
 
         public static PartOfSpeechType ToEnum(string partOfSpeechText)
         {
@@ -102,7 +111,5 @@ namespace LuvWordy.Server.Model.Utils
                     return PartOfSpeechType.None;
             }
         }
-
-
     }
 }

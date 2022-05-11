@@ -1,9 +1,4 @@
 ﻿using LuvWordy.Server.Model.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LuvWordy.Server.Model.Utils
 {
@@ -15,12 +10,16 @@ namespace LuvWordy.Server.Model.Utils
             {
                 default:
                     return "Unknown";
+
                 case VocabularyLevelType.None:
                     return "없음";
+
                 case VocabularyLevelType.Easy:
                     return "초급";
+
                 case VocabularyLevelType.Normal:
                     return "중급";
+
                 case VocabularyLevelType.Hard:
                     return "고급";
             }

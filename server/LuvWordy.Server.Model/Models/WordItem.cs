@@ -10,6 +10,7 @@ namespace LuvWordy.Server.Model.Models
     public class WordItemBase
     {
         #region Constructor
+
         public WordItemBase()
         {
             DataNumber = -1;
@@ -21,7 +22,8 @@ namespace LuvWordy.Server.Model.Models
             DataNumber = int.TryParse(row["DataNo"]?.ToString(), out var datano) ? datano : -1;
             WrittenForm = row["WrittenForm"]?.ToString() ?? string.Empty;
         }
-        #endregion
+
+        #endregion Constructor
 
         /// <summary>
         /// 한국어 기초 사전 기준 ID 컬럼 (중복값이 존재하므로, 참조용으로 사용)
@@ -40,6 +42,7 @@ namespace LuvWordy.Server.Model.Models
     public class WordItemSummary : WordItemBase
     {
         #region Constructor
+
         public WordItemSummary() : base()
         {
             Id = Guid.Empty;
@@ -59,7 +62,8 @@ namespace LuvWordy.Server.Model.Models
             PartOfSpeechText = row["PartOfSpeech"]?.ToString() ?? String.Empty;
             VocabularyLevelText = row["VocabularyLevel"]?.ToString() ?? String.Empty;
         }
-        #endregion
+
+        #endregion Constructor
 
         /// <summary>
         /// 단어 ID
@@ -131,6 +135,7 @@ namespace LuvWordy.Server.Model.Models
     public class WordItem : WordItemSummary
     {
         #region Constructor
+
         public WordItem()
         {
             Definition = String.Empty;
@@ -154,7 +159,8 @@ namespace LuvWordy.Server.Model.Models
                 };
             }
         }
-        #endregion
+
+        #endregion Constructor
 
         /// <summary>
         /// 단어의 정의

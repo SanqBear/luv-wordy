@@ -77,9 +77,9 @@ namespace LuvWordy.Server.Web.Controllers.Dictionary
         /// <returns>id : key , word : value</returns>
         /// <remarks>
         /// 호출 예 :
-        /// 
-        ///     GET /api/v1/dictionaries/9D63F6D9-52E1-4447-A7DD-0008E52FBBC9    
-        /// 
+        ///
+        ///     GET /api/v1/dictionaries/9D63F6D9-52E1-4447-A7DD-0008E52FBBC9
+        ///
         /// </remarks>
         /// <response code="200">단어를 반환</response>
         /// <response code="400">ID를 파싱할 수 없음</response>
@@ -88,17 +88,17 @@ namespace LuvWordy.Server.Web.Controllers.Dictionary
         [Route("{id}")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(ApiResult<Dictionary<Guid, WordItem>>), 200)]
-        public async Task<IActionResult> GetDictionary(string id, [FromQuery]string? definitionId)
+        public async Task<IActionResult> GetDictionary(string id, [FromQuery] string? definitionId)
         {
             try
             {
-                if(Guid.TryParse(id, out Guid idProp))
+                if (Guid.TryParse(id, out Guid idProp))
                 {
-                    ApiResult<Dictionary<Guid, WordItem>> apiResult = new ApiResult<Dictionary<Guid,WordItem>>();
+                    ApiResult<Dictionary<Guid, WordItem>> apiResult = new ApiResult<Dictionary<Guid, WordItem>>();
 
                     Guid definitionIdProp = Guid.TryParse(definitionId, out definitionIdProp) ? definitionIdProp : Guid.Empty;
 
-                    await using(var repo = new WordRepository(_wordRepoConnectionString))
+                    await using (var repo = new WordRepository(_wordRepoConnectionString))
                     {
                         List<WordItem> items = repo.GetWordItemDetails(idProp, definitionIdProp);
 
@@ -113,7 +113,7 @@ namespace LuvWordy.Server.Web.Controllers.Dictionary
                     return BadRequest();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogError(ex, $"occured unexpected error on [{nameof(DictionariesController)}] {nameof(GetDictionary)}({nameof(id)}:'{id}',{nameof(definitionId)}:'{definitionId}')");
                 return StatusCode(500, ex.Message);

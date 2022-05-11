@@ -86,7 +86,6 @@ namespace LuvWordy.Server.Model.Repositories
             {
                 sizeParam,
                 offsetParam,
-                
             };
             parameters.AddRange(BuildSearchParams(keyword, lexicalUnit, partOfSpeech, vocabularyLevel));
 
