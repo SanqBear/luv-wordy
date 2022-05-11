@@ -1,4 +1,5 @@
-﻿using LuvWordy.Server.Model.Models;
+﻿using LuvWordy.Server.Model.Enums;
+using LuvWordy.Server.Model.Models;
 using LuvWordy.Server.Model.Repositories;
 using LuvWordy.Server.Web.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -57,7 +58,7 @@ namespace LuvWordy.Server.Web.Controllers.Dictionary
                     (apiResult.TotalCount, apiResult.Data) = repo.GetWordItems(sizeProp, offsetProp);
 
                     apiResult.NextOffset = apiResult.TotalCount > offsetProp + sizeProp ? offsetProp + sizeProp : null;
-                    apiResult.Success = true;
+                    apiResult.Success = apiResult.TotalCount != -1;
 
                     return Ok(apiResult);
                 }
@@ -116,6 +117,48 @@ namespace LuvWordy.Server.Web.Controllers.Dictionary
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"occured unexpected error on [{nameof(DictionariesController)}] {nameof(GetDictionary)}({nameof(id)}:'{id}',{nameof(definitionId)}:'{definitionId}')");
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+
+
+        public record DictionarySearchParams(string? keyword, string? lexicalUnit, string? partOfSpeech, string? vocabularyLevel);
+
+        [HttpPost]
+        [Route("search")]
+        [Produces("application/json")]
+        public async Task<IActionResult> SearchDictionary([FromQuery] int? page, [FromQuery] int? size, [FromQuery] int? offset, [FromBody] DictionarySearchParams @params)
+        {
+            try
+            {
+                ApiPagedResult<WordItemSummary> apiResult = new ApiPagedResult<WordItemSummary>();
+
+                int pageProp = page ?? 1;
+                int sizeProp = size ?? 15;
+                int offsetProp = (offset != null) ? (int)offset : sizeProp * (pageProp - 1);
+                string keywordProp;
+                LexicalUnitType lexicalUnitProp;
+                PartOfSpeechType partOfSpeechProp;
+                VocabularyLevelType vocabularyLevelProp;
+
+                keywordProp = @params?.keyword ?? string.Empty;
+                lexicalUnitProp = int.TryParse(@params?.lexicalUnit, out int lunum) ? (LexicalUnitType)lunum : Enum.TryParse(@params?.lexicalUnit, ignoreCase: true, out LexicalUnitType lu) ? lu : LexicalUnitType.NotInterested;
+                partOfSpeechProp = int.TryParse(@params?.partOfSpeech, out int posnum) ? (PartOfSpeechType)posnum : Enum.TryParse(@params?.partOfSpeech, ignoreCase: true, out PartOfSpeechType pos) ? pos : PartOfSpeechType.NotInterested;
+                vocabularyLevelProp = int.TryParse(@params?.vocabularyLevel, out int volnum) ? (VocabularyLevelType)volnum : Enum.TryParse(@params?.vocabularyLevel, ignoreCase: true, out VocabularyLevelType vol) ? vol : VocabularyLevelType.NotInterested;
+
+                await using (var repo = new WordRepository(_wordRepoConnectionString))
+                {
+                    (apiResult.TotalCount, apiResult.Data) = repo.SearchWordItems(size: sizeProp, offset: offsetProp, keyword: keywordProp, lexicalUnit: lexicalUnitProp, partOfSpeech: partOfSpeechProp, vocabularyLevel: vocabularyLevelProp);
+                    apiResult.Success = apiResult.TotalCount != -1;
+                    apiResult.NextOffset = apiResult.TotalCount > offsetProp + sizeProp ? offsetProp + sizeProp : null;
+                }
+
+                return Ok(apiResult);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"occured unexpected error on [{nameof(DictionariesController)}] {nameof(SearchDictionary)}({System.Text.Json.JsonSerializer.Serialize(@params)})");
                 return StatusCode(500, ex.Message);
             }
         }
