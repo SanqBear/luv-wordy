@@ -5,6 +5,8 @@ namespace LuvWordy.Server.Model.Enums
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum VocabularyLevelType
     {
+        NotInterested,
+
         Unknown,
 
         // 없음

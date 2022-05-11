@@ -5,6 +5,8 @@ namespace LuvWordy.Server.Model.Enums
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum LexicalUnitType
     {
+        NotInterested,
+
         // ?
         Unknown,
 

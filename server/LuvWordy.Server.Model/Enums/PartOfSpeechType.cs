@@ -5,6 +5,8 @@ namespace LuvWordy.Server.Model.Enums
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum PartOfSpeechType
     {
+        NotInterested,
+
         // ?
         Unknown,
 
