@@ -12,6 +12,7 @@
     "@luv-wordy/api": "file:../../modules/api",
     "@luv-wordy/eslint-config": "file:../../modules/eslint-config",
     "@luv-wordy/prettier-config": "file:../../modules/prettier-config",
-    "vue": "^3.2.33"
+    "vue": "^3.2.33",
+    "vue-i18n": "^9.2.0-beta.35"
   }
 }
