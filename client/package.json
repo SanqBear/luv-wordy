@@ -22,8 +22,9 @@
     "vue-tsc": "^0.34.12"
   },
   "dependencies": {
-    "@luv-wordy/client-dictionary": "file:packages\\applications\\luvwordy-dictionary",
-    "@luv-wordy/client-quiz": "file:packages\\applications\\luvwordy-quiz",
+    "@luv-wordy/api": "file:packages\\modules\\api",
+    "@luv-wordy/client-dictionary": "file:packages\\applications\\dictionary",
+    "@luv-wordy/client-quiz": "file:packages\\applications\\quiz",
     "@luv-wordy/eslint-config": "file:packages\\modules\\eslint-config",
     "@luv-wordy/prettier-config": "file:packages\\modules\\prettier-config"
   }

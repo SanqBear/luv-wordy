@@ -1,5 +1,5 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="view-search-dict"></div>
+  <div class="search-dictionary-view"></div>
 </template>

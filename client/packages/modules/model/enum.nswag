@@ -1,0 +1,35 @@
+{
+  "runtime": "Net60",
+  "defaultVariables": null,
+  "documentGenerator": {
+    "typesToOpenApi": {
+      "classNames": [
+        "LuvWordy.Server.Model.Enums.LexicalUnitType",
+        "LuvWordy.Server.Model.Enums.PartOfSpeechType",
+        "LuvWordy.Server.Model.Enums.VocabularyLevelType"
+      ],
+      "defaultPropertyNameHandling": "CamelCase",
+      "defaultReferenceTypeNullHandling": "Null",
+      "defaultDictionaryValueReferenceTypeNullHandling": "NotNull",
+      "defaultEnumHandling": "String",
+      "flattenInheritanceHierarchy": false,
+      "ignoreObsoleteProperties": false,
+      "allowReferencesWithProperties": false,
+      "generateKnownTypes": true,
+      "generateEnumMappingDescription": false,
+      "generateXmlObjects": false,
+      "useXmlDocumentation": true,
+      "resolveExternalXmlDocumentation": true,
+      "output": "./enum.ts",
+      "outputType": "OpenApi3",
+      "newLineBehavior": "Auto",
+      "assemblyPaths": [
+        "D:/Project/2022/MyProject/luv-wordy/server/LuvWordy.Server.Model/bin/Debug/net6.0/LuvWordy.Server.Model.dll"
+      ],
+      "assemblyConfig": null,
+      "referencePaths": [],
+      "useNuGetCache": false
+    }
+  },
+  "codeGenerators": {}
+}
