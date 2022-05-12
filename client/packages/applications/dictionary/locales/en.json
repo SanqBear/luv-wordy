@@ -1,3 +1,6 @@
 {
-  "search": "search"
+  "searchDictionary": "Search Dictionary",
+  "dictionary": "Dictionary",
+  "search": "Search",
+  "enterInputSearchKeyword": "Please enter a search keyword"
 }

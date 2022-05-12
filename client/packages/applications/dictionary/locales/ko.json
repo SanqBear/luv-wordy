@@ -1,3 +1,6 @@
 {
-  "search": "검색"
+  "searchDictionary": "사전 검색",
+  "dictionary": "사전",
+  "search": "검색",
+  "enterInputSearchKeyword": "검색어를 입력해주세요"
 }
