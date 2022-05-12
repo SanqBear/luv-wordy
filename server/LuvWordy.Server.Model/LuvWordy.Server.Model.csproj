@@ -9,7 +9,28 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="NSwag.MSBuild" Version="13.15.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Enums\LexicalUnitType.cs">
+    </Compile>
+    <Compile Update="Enums\PartOfSpeechType.cs">
+    </Compile>
+    <Compile Update="Enums\VocabularyLevelType.cs">
+    </Compile>
+    <Compile Update="Models\PronunciationItem.cs">
+    </Compile>
+    <Compile Update="Models\WordItem.cs">
+    </Compile>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="$(NSwagExe_Net60) run &quot;$(ProjectDir)/Scripts/model.nswag&quot;" />
+  </Target>
 
 </Project>
